@@ -1,0 +1,23 @@
+Certainly! Here's a detailed explanation of the code:
+
+1. The code begins with the definition of the `Graph` class. The `__init__` method initializes the `adjList` attribute as an empty list of lists with a length of `n`. It then iterates through the provided `edges` and adds the corresponding vertices to each other's adjacency lists. This step creates an undirected graph.
+
+2. The `recursive_DFS` method performs a depth-first search (DFS) traversal recursively. It takes the current vertex `v` and a list `discovered` to keep track of discovered vertices.
+
+3. Inside the `recursive_DFS` method, the current vertex `v` is marked as discovered by setting `discovered[v]` to `True`. It is then printed, representing the visitation of that vertex.
+
+4. The method then iterates through the adjacent vertices of `v` by accessing the adjacency list of `v` in the `adjList` attribute. For each adjacent vertex `u`, it checks if it has not been discovered yet (`not discovered[u]`). If `u` is undiscovered, it recursively calls the `recursive_DFS` method with `u` as the new current vertex. This recursive step continues until all vertices have been visited.
+
+5. The `main` section of the code prompts the user to enter the number of edges and the edges themselves. The edges are stored in the `edges` list as tuples representing the source and destination vertices.
+
+6. The user is also prompted to input the value of `n`, representing the total number of vertices in the graph.
+
+7. An instance of the `Graph` class is created, passing the `edges` and `n` as arguments. This initializes the graph object with the provided edges.
+
+8. The `discovered` list is initialized as a list of `False` values with a length of `n`. It is used to keep track of which vertices have been discovered during the DFS traversal.
+
+9. The DFS traversal is performed by iterating through each vertex from `0` to `n-1`. For each vertex, if it has not been discovered yet, it is marked as discovered, and the `recursive_DFS` method is called with that vertex as the starting point of the traversal.
+
+10. Finally, the DFS traversal is printed, showing the vertices visited in depth-first order.
+
+The code essentially implements a recursive version of the Depth First Search algorithm to traverse an undirected graph. It starts from each undiscovered vertex and explores as deep as possible before backtracking. The result is the order in which the vertices are visited during the traversal.

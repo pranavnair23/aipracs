@@ -1,0 +1,111 @@
+Certainly! Let's go through the code step by step and explain each part in detail:
+
+```java
+import java.util.*;
+
+class MST {
+    private static final int V = 5;
+```
+
+- This line imports the necessary packages and declares the `MST` class.
+- `private static final int V = 5;` defines a constant `V` with a value of 5, representing the number of vertices in the graph.
+
+```java
+    int minKey(int key[], Boolean mstSet[]) {
+        int min = Integer.MAX_VALUE, min_index = -1;
+        for (int v = 0; v < V; v++)
+            if (mstSet[v] == false && key[v] < min) {
+                min = key[v];
+                min_index = v;
+            }
+        return min_index;
+    }
+```
+
+- This method, `minKey`, is a utility function used to find the vertex with the minimum key value from the set of vertices not yet included in the MST.
+- It takes two arrays as arguments: `key` representing the key values of vertices, and `mstSet` representing the set of vertices included in the MST.
+- The function initializes `min` to a large value and `min_index` to -1.
+- It iterates through all the vertices and checks if the vertex is not in the MST set (`mstSet[v] == false`) and if its key value is smaller than the current minimum key (`key[v] < min`).
+- If the conditions are satisfied, it updates `min` and `min_index` with the new minimum key and the index of the vertex with the minimum key.
+- Finally, it returns the index of the vertex with the minimum key.
+
+```java
+    void printMST(int parent[], int graph[][]) {
+        System.out.println("Edge \tWeight");
+        for (int i = 1; i < V; i++)
+            System.out.println(parent[i] + " - " + i + "\t" + graph[i][parent[i]]);
+    }
+```
+
+- This method, `printMST`, is a utility function used to print the constructed MST stored in the `parent` array.
+- It takes two arguments: `parent`, an array representing the parent of each vertex in the MST, and `graph`, a 2D array representing the graph and its edge weights.
+- It prints the edges and their weights in the MST by iterating over the `parent` array.
+- The loop starts from `i = 1` since the first vertex is always the root of the MST and does not have a parent.
+- It prints the parent vertex, the current vertex, and the weight of the edge between them.
+
+```java
+    void primMST(int graph[][]) {
+        int parent[] = new int[V];
+        int key[] = new int[V];
+        Boolean mstSet[] = new Boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            key[i] = Integer.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        key[0] = 0;
+        parent[0] = -1;
+
+        for (int count = 0; count < V - 1; count++) {
+            int u = minKey(key, mstSet);
+            mstSet[u] = true;
+
+            for (int v = 0; v < V; v++)
+                if (graph[u][v] != 0 && mstSet[v] == false && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+        }
+
+        print
+
+MST(parent, graph);
+    }
+```
+
+- This method, `primMST`, is the main function that constructs and prints the MST using Prim's algorithm.
+- It takes the graph represented by the `graph` 2D array as an argument.
+- It initializes three arrays: `parent` to store the parent of each vertex in the MST, `key` to store the minimum key values of vertices, and `mstSet` to keep track of vertices included in the MST.
+- The `key` array is initialized with a large value (`Integer.MAX_VALUE`) and `mstSet` is initialized as `false` for all vertices.
+- The key value of the first vertex is set to 0 (`key[0] = 0`) to ensure it is picked as the starting vertex.
+- The parent of the first vertex is set to -1 since it is the root of the MST.
+- The outer loop runs for `V - 1` iterations since the MST will have `V - 1` edges.
+- In each iteration, it selects the vertex `u` with the minimum key value that is not yet included in the MST.
+- It marks `u` as part of the MST by setting `mstSet[u]` to `true`.
+- Then, it updates the key values and parent indices of the adjacent vertices of `u` that are not yet included in the MST. It considers only those vertices for which the corresponding graph weight is non-zero and that are not already part of the MST (`mstSet[v] == false`).
+- If the weight of the edge between `u` and `v` is smaller than the current key value of `v`, it updates `parent[v]` and `key[v]` with the new values.
+- After constructing the MST, it calls the `printMST` function to print the MST.
+
+```java
+    public static void main(String[] args) {
+        MST t = new MST();
+
+        int graph[][] = new int[][] {
+            { 0, 2, 0, 6, 0 },
+            { 2, 0, 3, 8, 5 },
+            { 0, 3, 0, 0, 7 },
+            { 6, 8, 0, 0, 9 },
+            { 0, 5, 7, 9, 0 }
+        };
+
+        t.primMST(graph);
+    }
+}
+```
+
+- This is the `main` function where an instance of the `MST` class is created.
+- A sample graph is defined as a 2D array `graph` representing the weights of edges between vertices.
+- The `primMST` method is called on the `t` object to find and print the MST of the given graph.
+
+Overall, this code implements Prim's algorithm for finding the Minimum Spanning Tree (MST) of a graph. It starts with a given graph, finds the MST using Prim's algorithm, and prints the MST by displaying the edges and their weights.

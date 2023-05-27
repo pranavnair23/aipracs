@@ -1,0 +1,31 @@
+Certainly! Here's a detailed explanation of the code:
+
+1. The code begins by importing the `deque` class from the `collections` module. The `deque` is a double-ended queue data structure that will be used for implementing the queue in the BFS traversal.
+
+2. The `Graph` class is defined to represent the graph object. It has an `__init__` method that takes the edges and the number of vertices (`n`) as arguments. Inside the `__init__` method, the `adjList` attribute is initialized as an empty list of lists with a length of `n`. Then, it iterates through the edges and adds the corresponding vertices to each other's adjacency lists.
+
+3. The `recursiveBFS` function performs the recursive BFS traversal. It takes the graph object (`graph`), a queue (`q`), and a list of discovered vertices (`discovered`) as arguments.
+
+4. Inside the `recursiveBFS` function, the base case is checked first. If the queue (`q`) is empty, the function returns, indicating the end of the traversal.
+
+5. If the queue is not empty, the front node (`v`) is dequeued from the queue using the `popleft()` method of the `deque` object. This node is printed as part of the BFS traversal.
+
+6. Next, the function iterates through the adjacent vertices of `v` by accessing the adjacency list of `v` in the graph object (`graph.adjList[v]`). For each adjacent vertex (`u`), it checks if it has not been discovered yet (`not discovered[u]`). If `u` is undiscovered, it marks it as discovered by setting `discovered[u]` to `True` and enqueues it by appending it to the queue (`q`).
+
+7. After enqueuing all the undiscovered adjacent vertices of `v`, the function makes a recursive call to `recursiveBFS` with the updated queue and discovered list. This step continues the BFS traversal recursively until all vertices have been visited.
+
+8. In the `main` section of the code, the user is prompted to enter the number of edges and the edges themselves. The edges are stored in the `edges` list as tuples of source and destination vertices.
+
+9. The user is also asked to input the value of `n`, which represents the total number of vertices in the graph.
+
+10. An instance of the `Graph` class is created with the `edges` and `n` as arguments, which initializes the graph object.
+
+11. The `discovered` list is initialized as a list of `False` values with a length of `n`. It keeps track of whether a vertex has been discovered during the BFS traversal.
+
+12. The `q` (queue) is created as a `deque` object from the `collections` module.
+
+13. The BFS traversal is performed by iterating through each vertex from `0` to `n-1`. For each vertex, if it has not been discovered, it is marked as discovered, enqueued, and the `recursiveBFS` function is called to start the BFS traversal from that vertex.
+
+14. Finally, the BFS traversal is printed, which shows the vertices visited in breadth-first order.
+
+The code effectively implements recursive BFS traversal on an undirected graph and prints the BFS traversal path.

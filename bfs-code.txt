@@ -1,0 +1,42 @@
+from collections import deque
+
+class Graph:
+    def __init__(self, edges, n):
+        self.adjList = [[] for _ in range(n)]
+        for (src, dest) in edges:
+            self.adjList[src].append(dest)
+            self.adjList[dest].append(src)
+
+def recursiveBFS(graph, q, discovered):
+    if not q:
+        return
+    v = q.popleft()
+    print(v, end=' ')
+    for u in graph.adjList[v]:
+        if not discovered[u]:
+            discovered[u] = True
+            q.append(u)
+    recursiveBFS(graph, q, discovered)
+
+if __name__ == '__main__':
+    edges = []
+    num_edges = int(input("Enter the number of edges: "))
+    print("Enter edges (source destination):")
+    for _ in range(num_edges):
+        src, dest = map(int, input().split())
+        edges.append((src, dest))
+    
+    n = int(input("Enter the value of n: "))
+    
+    graph = Graph(edges, n)
+    
+    discovered = [False] * n
+    q = deque()
+    
+    print("\nFollowing is Breadth First Traversal:")
+    for i in range(n):
+        if not discovered[i]:
+            discovered[i] = True
+            q.append(i)
+            recursiveBFS(graph, q, discovered)
+

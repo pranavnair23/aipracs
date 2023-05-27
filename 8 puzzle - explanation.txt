@@ -1,0 +1,33 @@
+Certainly! Here's an explanation of the provided A* algorithm code:
+
+1. The code starts with including necessary libraries and defines the constant `N` as the size of the puzzle grid.
+
+2. The `Node` structure represents a node in the state space tree. It stores the parent node, the matrix configuration, the coordinates of the blank tile (`x` and `y`), the cost, and the level (number of moves) of the node.
+
+3. The `printMatrix` function prints the N x N matrix.
+
+4. The `newNode` function creates a new node by copying the matrix configuration, swapping tiles, and setting the cost and level. It returns the newly created node.
+
+5. The `calculateCost` function calculates the number of misplaced tiles by comparing the initial and final matrix configurations.
+
+6. The `isSafe` function checks if a given coordinate (x, y) is within the puzzle grid.
+
+7. The `printPath` function recursively prints the path from the root node to the current node.
+
+8. The `comp` struct is a comparison object used to order nodes in the priority queue based on their cost and level.
+
+9. The `solve` function implements the A* algorithm to solve the puzzle. It takes the initial and final matrix configurations, as well as the coordinates of the blank tile. It starts by creating a priority queue (`pq`) to store the live nodes.
+
+10. The `root` node is created with the initial matrix configuration, and its cost is calculated using `calculateCost`. It is then pushed into the priority queue.
+
+11. The main loop of the algorithm continues until the priority queue is empty. It extracts the node with the minimum estimated cost from the priority queue.
+
+12. If the minimum cost is zero, it means the final configuration is reached, and the `printPath` function is called to print the path from the root to the current node.
+
+13. If the final configuration is not reached, the algorithm generates child nodes by moving the blank tile in all possible directions (up, down, left, right). For each valid move, a new child node is created, and its cost is calculated.
+
+14. The child nodes are pushed into the priority queue. The algorithm continues to explore the state space tree, considering nodes with lower costs first.
+
+15. Finally, the `main` function initializes the initial and final matrix configurations and calls the `solve` function to find the solution path.
+
+The A* algorithm uses a heuristic function (the number of misplaced tiles) to estimate the cost of reaching the goal state. It explores the state space efficiently by considering the cost and level of each node.

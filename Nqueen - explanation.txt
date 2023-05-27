@@ -1,0 +1,90 @@
+Certainly! The code you provided is an implementation of the N-Queen problem using backtracking. Let's go through it step by step:
+
+```java
+global N
+N = 4
+```
+
+- This code defines the global variable `N` and sets its value to 4, representing the size of the chessboard and the number of queens to be placed.
+
+```java
+def printSolution(board):
+    for i in range(N):
+        for j in range(N):
+            print(board[i][j], end=" ")
+        print()
+```
+
+- This function, `printSolution`, is used to print the placement of queens on the chessboard.
+- It takes a 2D `board` array as an argument and prints it row by row, representing the positions of the queens.
+- Each element of the `board` array represents a cell on the chessboard. If the value is 1, it indicates a queen is placed on that cell; otherwise, it is empty.
+
+```java
+def isSafe(board, row, col):
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+    for i, j in zip(range(row, N, 1), range(col, -1, -1)):
+        if board[i][j] == 1:
+            return False
+    return True
+```
+
+- The `isSafe` function is used to check if it is safe to place a queen at a given position (`row`, `col`) on the chessboard.
+- It takes the `board` array, the `row` and `col` indices as arguments.
+- It checks three conditions:
+  - It verifies that no queen is present in the same row before the current column. If there is a queen (`board[row][i] == 1`), it returns `False`.
+  - It checks the upper diagonal from the current position (`row`, `col`) to the top-left corner of the board. If there is a queen (`board[i][j] == 1`), it returns `False`.
+  - It checks the lower diagonal from the current position (`row`, `col`) to the bottom-left corner of the board. If there is a queen (`board[i][j] == 1`), it returns `False`.
+- If all conditions pass, it returns `True`, indicating it is safe to place a queen at that position.
+
+```java
+def solveNQUltil(board, col):
+    if col >= N:
+        return True
+    for i in range(N):
+        if isSafe(board, i, col):
+            board[i][col] = 1
+            if solveNQUltil(board, col + 1) == True:
+                return True
+            board[i][col] = 0
+    return False
+```
+
+- The `solveNQUltil` function is a recursive utility function used to solve the N-Queen problem using backtracking.
+- It takes the `board` array and the `col` index as arguments.
+- The base case is when `col` becomes equal to or greater than `N`, indicating that all queens have been placed successfully. In that case, it returns `True`.
+- It tries to place a queen in each row of the current column (`col`) using a loop. For each row, it checks if it is safe to place a queen at that position (`isSafe(board, i, col)`).
+- If it is safe, it marks that cell as a queen (`board
+
+[i][col] = 1`) and makes a recursive call to `solveNQUltil` with the next column (`col + 1`).
+- If the recursive call returns `True`, it means a valid placement of queens is found, and it returns `True`.
+- If the recursive call returns `False`, it means the current placement is invalid, so it backtracks by marking the cell as empty (`board[i][col] = 0`) and continues with the next row.
+- If no valid placement is found for any row, it returns `False`.
+
+```java
+def solveNQ():
+    board = [[0 for _ in range(N)] for _ in range(N)]
+    if solveNQUltil(board, 0) == False:
+        print("Solution does not exist")
+        return False
+    printSolution(board)
+    return True
+```
+
+- The `solveNQ` function is the main function that initializes the chessboard (`board` array) and solves the N-Queen problem.
+- It creates an empty `board` array of size `N x N` filled with zeros.
+- It calls the `solveNQUltil` function with the `board` and `col = 0` to find a solution.
+- If `solveNQUltil` returns `False`, it means no valid solution exists, so it prints a message and returns `False`.
+- If `solveNQUltil` returns `True`, it means a valid solution is found, so it calls the `printSolution` function to print the placement of queens on the chessboard.
+
+```java
+solveNQ()
+```
+
+- This line of code calls the `solveNQ` function to solve the N-Queen problem and print the solution.
+
+In summary, the code uses backtracking to solve the N-Queen problem by recursively trying different positions for each column on the chessboard. It checks the safety conditions to ensure that no two queens threaten each other. Once a valid solution is found, it is printed on the console.
